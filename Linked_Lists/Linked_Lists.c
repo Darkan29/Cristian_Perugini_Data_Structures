@@ -2,20 +2,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct list_node
+typedef struct list_node
 {
     struct list_node *next;
-};
+    unsigned int count;
+}list_node;
 
-struct list_node *list_get_tail(struct list_node **head)
+list_node *list_get_tail(list_node **head)
 {
     if (!head)
     {
         return NULL;
     }
 
-    struct list_node *current_node = *head;
-    struct list_node *last_node = NULL;
+    list_node *current_node = *head;
+    list_node *last_node = NULL;
     while (current_node)
     {
         last_node = current_node;
@@ -24,37 +25,55 @@ struct list_node *list_get_tail(struct list_node **head)
     return last_node;
 }
 
-struct list_node *list_append(struct list_node **head, struct list_node *item)
+list_node *list_append(list_node **head, list_node *item)
 {
-    struct list_node *tail = list_get_tail(head);
+    list_node *tail = list_get_tail(head);
     if (!tail)
     {
         *head = item;
+        (*head)->count=1;
     }
     else
     {
         tail->next = item;
+        (*head)->count++;
     }
     item->next = NULL;
     return item;
 }
-struct list_node *list_pop(struct list_node **head)
+
+list_node *list_pop(list_node **head)
 {
-    struct list_node *current_head = *head;
-    if (!current_head)
+    if (!*head)
     {
         return NULL;
     }
+    
+    list_node *current_head = *head;
+
+    const unsigned int current_count = current_head->count;
     *head = (*head)->next;
+    
+    if (*head)
+    {
+        (*head)->count = current_count-1;
+    }
+    
+
     current_head->next = NULL;
     return current_head;
 }
 
-struct string_item
+unsigned list_lenght(list_node* head)
+{
+    return head-> count;
+}
+
+typedef struct string_item
 {
     struct list_node node;
     const char *string;
-};
+}string_item;
 
 typedef struct int_item
 {
@@ -62,9 +81,9 @@ typedef struct int_item
     int value;
 }int_item;
 
-struct string_item *string_item_new(const char *string)
+string_item *string_item_new(const char *string)
 {
-    struct string_item *item = malloc(sizeof(struct string_item));
+    string_item *item = malloc(sizeof(string_item));
     if (!item)
     {
         return NULL;
@@ -95,16 +114,19 @@ int main()
 
     int_item *my_linked_list = NULL;
 
-    list_append((struct list_node**)&my_linked_list, (struct list_node*)int_item_new(21));
-    list_append((struct list_node**)&my_linked_list, (struct list_node*)int_item_new(12));
-    list_append((struct list_node**)&my_linked_list, (struct list_node*)int_item_new(69));
+    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(21));
+    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(12));
+    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(69));
 
     int_item *int_item = my_linked_list;
+    printf("%d\n",list_lenght((list_node*)int_item));
 
     while (int_item)
     {
         printf("%d\n", int_item->value);
         int_item = (struct int_item*)int_item->node.next;
     }
+
+    
     return 0;
 }
