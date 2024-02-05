@@ -136,6 +136,31 @@ void list_remove(list_node **head, list_node* item_to_remove)
     free(head_ref);
 }
 
+void list_reverse(list_node** head)
+{
+    list_node* current = *head;
+    list_node* previous_node = NULL;
+    list_node* next_node = NULL;
+
+    while (current!=NULL)
+    {
+        next_node = current->next;
+        current->next = previous_node;
+        previous_node = current;
+    }
+
+    head = &previous_node;
+}
+
+void print_list(int_item * head) {
+    int_item * current = head;
+
+    while (current != NULL) {
+        printf("%d\n", current->value);
+        current = (int_item*)current->node.next;
+    }
+}
+
 int main()
 {
     // struct string_item *my_linked_list = NULL;
@@ -154,18 +179,16 @@ int main()
     list_append(LISTPP(my_linked_list), LIST(int_item_new(55555)));
     list_append(LISTPP(my_linked_list), LIST(int_item_new(777)));
 
-    list_pop(LISTPP(my_linked_list));
+    //list_pop(LISTPP(my_linked_list));
     
-    list_remove(LISTPP(my_linked_list), LIST(int_item_new(3)));
+    //list_remove(LISTPP(my_linked_list), LIST(int_item_new(3)));
 
     int_item *int_item = my_linked_list;
-    printf("%d\n",list_lenght(LIST(int_item)));
+    print_list(int_item);
 
-    while (int_item)
-    {
-        printf("%d\n", int_item->value);
-        int_item = INT_LIST(int_item->node.next);
-    }
+    list_reverse((list_node**)&int_item);
+
+    print_list(int_item);
     
     return 0;
 }
