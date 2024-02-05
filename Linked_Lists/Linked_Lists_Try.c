@@ -116,11 +116,10 @@ void list_remove(list_node **head, int value_to_remove)  //NOT WORKING
     if (head_ref->value == value_to_remove) 
     {
         *head = head_ref->next;
-        printf("Element removed from List\n");
         return;
     }
 
-    while (head_ref != NULL && head_ref->value != value_to_remove)
+    while (head_ref != NULL)
     {
         prev = head_ref;    
         head_ref = head_ref->next;
@@ -151,7 +150,7 @@ int main()
 
     list_pop(&my_linked_list);
     
-    list_remove(&my_linked_list, 1111); //ONLY WORKS IF ELEMENT TO REMOVE IS THE FIRST OF THE LIST
+    list_remove(&my_linked_list, 21); //ONLY WORKS IF ELEMENT TO REMOVE IS THE FIRST OF THE LIST
 
     //printf("%d\n\n\n",list_lenght(my_linked_list));
 
