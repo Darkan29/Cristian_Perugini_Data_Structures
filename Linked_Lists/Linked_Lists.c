@@ -17,11 +17,13 @@ list_node *list_get_tail(list_node **head)
 
     list_node *current_node = *head;
     list_node *last_node = NULL;
+
     while (current_node)
     {
         last_node = current_node;
         current_node = current_node->next;
     }
+    
     return last_node;
 }
 
