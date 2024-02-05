@@ -6,6 +6,7 @@ typedef struct list_node
 {
     struct list_node *next;
     unsigned int count;
+    int value;
 }list_node;
 
 list_node *list_get_tail(list_node **head)
@@ -27,7 +28,7 @@ list_node *list_get_tail(list_node **head)
     return last_node;
 }
 
-list_node *list_append(list_node **head, list_node *item)
+list_node *list_append(list_node **head, list_node *item, int value)
 {
     list_node *tail = list_get_tail(head);
     if (!tail)
@@ -42,7 +43,7 @@ list_node *list_append(list_node **head, list_node *item)
     }
 
     item->next = NULL;
-    
+    item->value = value;
     return item;
 }
 
@@ -107,61 +108,59 @@ int_item *int_item_new(int value)
     return item;
 }
 
-void list_remove(list_node **head, list_node* item_to_remove)
+void list_remove(list_node **head, int value_to_remove)  //NOT WORKING
 {
     list_node *head_ref = *head; 
+    list_node *prev = NULL;
 
+    if (head_ref->value == value_to_remove) 
+    {
+        *head = head_ref->next;
+        printf("Element removed from List\n");
+        return;
+    }
+
+    while (head_ref != NULL && head_ref->value != value_to_remove)
+    {
+        prev = head_ref;    
+        head_ref = head_ref->next;
+    }
+    
     if (!head_ref)
     {
         return;
     }
 
-    while (head_ref)
-    {
-        if (head_ref == item_to_remove)
-        {
-            printf("Removed\n");
-        }
-         
-        head_ref = head_ref->next;
-    }
-    
-    
-
+    prev->next = head_ref->next;
 
     free(head_ref);
 }
 
 int main()
 {
-    // struct string_item *my_linked_list = NULL;
-    // list_append((struct list_node **)&my_linked_list, (struct list_node *)string_item_new("Hello World"));
-    // list_append((struct list_node **)&my_linked_list, (struct list_node *)string_item_new("Test001"));
-    // list_append((struct list_node **)&my_linked_list, (struct list_node *)string_item_new("Test002"));
-    // list_append((struct list_node **)&my_linked_list, (struct list_node *)string_item_new("Last Item of the Linked List"));
-    // struct string_item *string_item = my_linked_list;
+    list_node *my_linked_list = NULL;
 
-    int_item *my_linked_list = NULL;
+    list_node first_element;
+    list_node second_element;
+    list_node third_element;
 
-    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(21));
-    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(61));
-    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(69));
-    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(3));
-    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(111));
-    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(777));
-
-    list_pop((list_node**)&my_linked_list);
+    list_append(&my_linked_list, &first_element, 21);
+    list_append(&my_linked_list, &second_element, 66);
+    list_append(&my_linked_list, &third_element, 1111);
     
-    list_remove((list_node**)&my_linked_list, (list_node*)int_item_new(3));
 
-    int_item *int_item = my_linked_list;
-    printf("%d\n",list_lenght((list_node*)int_item));
+    list_pop(&my_linked_list);
+    
+    list_remove(&my_linked_list, 1111); //ONLY WORKS IF ELEMENT TO REMOVE IS THE FIRST OF THE LIST
 
-    while (int_item)
+    //printf("%d\n\n\n",list_lenght(my_linked_list));
+
+    while (my_linked_list)
     {
-        printf("%d\n", int_item->value);
-        int_item = (struct int_item*)int_item->node.next;
+        printf("%d\n", my_linked_list->value);
+        my_linked_list = my_linked_list->next;
     }
     
+
     return 0;
 }
