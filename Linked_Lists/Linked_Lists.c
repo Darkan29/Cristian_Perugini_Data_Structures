@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define LIST(x) (list_node*)x 
+#define LISTPP(x) (list_node**)&x 
+#define INT_LIST(x) (struct int_item*)x
+
 typedef struct list_node
 {
     struct list_node *next;
@@ -143,24 +147,24 @@ int main()
 
     int_item *my_linked_list = NULL;
 
-    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(21));
-    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(61));
-    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(69));
-    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(3));
-    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(111));
-    list_append((list_node**)&my_linked_list, (list_node*)int_item_new(777));
+    list_append(LISTPP(my_linked_list), LIST(int_item_new(21)));
+    list_append(LISTPP(my_linked_list), LIST(int_item_new(61)));
+    list_append(LISTPP(my_linked_list), LIST(int_item_new(69)));
+    list_append(LISTPP(my_linked_list), LIST(int_item_new(3)));
+    list_append(LISTPP(my_linked_list), LIST(int_item_new(55555)));
+    list_append(LISTPP(my_linked_list), LIST(int_item_new(777)));
 
-    list_pop((list_node**)&my_linked_list);
+    list_pop(LISTPP(my_linked_list));
     
-    list_remove((list_node**)&my_linked_list, (list_node*)int_item_new(3));
+    list_remove(LISTPP(my_linked_list), LIST(int_item_new(3)));
 
     int_item *int_item = my_linked_list;
-    printf("%d\n",list_lenght((list_node*)int_item));
+    printf("%d\n",list_lenght(LIST(int_item)));
 
     while (int_item)
     {
         printf("%d\n", int_item->value);
-        int_item = (struct int_item*)int_item->node.next;
+        int_item = INT_LIST(int_item->node.next);
     }
     
     return 0;
