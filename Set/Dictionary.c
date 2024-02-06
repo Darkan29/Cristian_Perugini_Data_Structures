@@ -35,7 +35,7 @@ void aiv_dictionary_insert(aiv_dictionary *set, const char *key, const int value
 
     const size_t index = hash % HASHMAP_SIZE;
 
-    for (size_t i = 0; i < HASHMAP_SIZE; i++)  //CHECKS FOR UNIQUE KEYS
+    for (size_t i = 0; i < HASHMAP_SIZE; i++)  //CHECKS FOR UNIQUE KEY/VALUE PAIR
     {
         if (set->hashmap[index][i].key == key && set->hashmap[index][i].value == value)   //if current iteration's key/value inside the hashmap is equal to the given key/value
         {
@@ -82,7 +82,7 @@ void aiv_dictionary_find(aiv_dictionary *set, const char *key, const int value)
         }
     }
 
-    printf("No Key/Value pair found with Key=%s and Value=%d", key, value);
+    printf("ERROR: No Key/Value pair found with Key=%s and Value=%d", key, value);
 }
 
 int main(int argc, char **argv)
@@ -97,10 +97,10 @@ int main(int argc, char **argv)
     aiv_dictionary_insert(&myset, "Cinque", 5);
     aiv_dictionary_insert(&myset, "Sei", 6);
 
-    aiv_dictionary_insert(&myset, "Due", 2);
+    aiv_dictionary_insert(&myset, "Due", 2);  //WILL NOT ADD THIS
 
-    aiv_dictionary_find(&myset, "Due", 2);
-    aiv_dictionary_find(&myset, "Due", 89);
+    aiv_dictionary_find(&myset, "Due", 2);    //WILL FIND THIS
+    aiv_dictionary_find(&myset, "Due", 89);   //WILL NOT FIND THIS
 
 
 
