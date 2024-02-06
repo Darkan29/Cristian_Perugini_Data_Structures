@@ -138,8 +138,8 @@ void list_remove(list_node **head, list_node* item_to_remove)
 
 void list_reverse(list_node** head)
 {
-    list_node* current = *head;
     list_node* previous_node = NULL;
+    list_node* current = *head;
     list_node* next_node = NULL;
 
     while (current!=NULL)
@@ -147,9 +147,10 @@ void list_reverse(list_node** head)
         next_node = current->next;
         current->next = previous_node;
         previous_node = current;
+        current=next_node;
     }
 
-    head = &previous_node;
+    *head = previous_node;
 }
 
 void print_list(int_item * head) {
