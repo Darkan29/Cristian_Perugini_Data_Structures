@@ -85,7 +85,7 @@ void aiv_set_find(struct aiv_set *set, const char *key)
 int main(int argc, char **argv)
 {
     struct aiv_set myset;
-    memset(&myset, 0, sizeof(struct aiv_set));
+    memset(&myset, 0, sizeof(aiv_set));
 
     aiv_set_insert(&myset, "Hello");
     aiv_set_insert(&myset, "Hello2");
