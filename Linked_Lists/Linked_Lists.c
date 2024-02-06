@@ -187,7 +187,7 @@ int main()
     int_item *int_item = my_linked_list;
     print_list(int_item);
 
-    list_reverse((list_node**)&int_item);
+    list_reverse(LISTPP(int_item));
 
     print_list(int_item);
     
