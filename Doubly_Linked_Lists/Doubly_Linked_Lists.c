@@ -1,7 +1,9 @@
-#include <stddef.h> // required for NULL
+#include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
 
+#define LIST(x) (list_node*)x 
+#define LISTPP(x) (list_node**)&x
 
 typedef struct list_node
 {
@@ -36,7 +38,7 @@ list_node *list_get_tail(list_node **head)
 
 list_node *list_append (list_node **head, list_node *item)
 {
-    struct list_node *tail = list_get_tail (head);
+    list_node *tail = list_get_tail (head);
     if (!tail)
     {
         *head = item;
@@ -47,17 +49,6 @@ list_node *list_append (list_node **head, list_node *item)
     }
     item->prev = tail;
     item->next = NULL;
-    return item;
-}
-
-int_list_node *int_item_new(int value)
-{
-    int_list_node *item = malloc(sizeof(int_list_node));
-    if (!item)
-    {
-        return NULL;
-    }
-    item->value = value;
     return item;
 }
 
@@ -166,7 +157,7 @@ int main()
 
     insert_After((list_node*)&item3, (list_node*)&item4);
     insert_Before((list_node*)&item7, (list_node*)&item6);
-    //list_remove((list_node**)&int_list, (list_node*)&item2.node.next); DOESN'T DO ANYTHING, STOPS OTHER FUNCTIONS TOO
+    //list_remove((list_node**)&int_list, (list_node*)&item2.node.next); //DOESN'T DO ANYTHING, STOPS OTHER FUNCTIONS TOO
 
     print_list(int_list);
 
