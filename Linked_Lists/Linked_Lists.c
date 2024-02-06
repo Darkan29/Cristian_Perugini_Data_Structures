@@ -1,10 +1,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
-
-#define LIST(x) (list_node*)x 
-#define LISTPP(x) (list_node**)&x 
-#define INT_LIST(x) (struct int_item*)x
+#include "../DataStructures.h"
 
 typedef struct list_node
 {
@@ -111,30 +108,27 @@ int_item *int_item_new(int value)
     return item;
 }
 
-void list_remove(list_node **head, list_node* item_to_remove)
-{
-    list_node *head_ref = *head; 
+// void list_remove(list_node **head, list_node* item_to_remove)  
+// {
+//     list_node *head_ref = *head; 
 
-    if (!head_ref)
-    {
-        return;
-    }
+//     if (!head_ref)
+//     {
+//         return;
+//     }
 
-    while (head_ref)
-    {
-        if (head_ref == item_to_remove)
-        {
-            printf("Removed\n");
-        }
+//     while (head_ref)
+//     {
+//         if (head_ref == item_to_remove)        COMPARISON IS PROBABLY NOT ALLOWED
+//         {
+//             printf("Removed\n");               NEVER ENTERS HERE
+//         }
          
-        head_ref = head_ref->next;
-    }
+//         head_ref = head_ref->next;
+//     }
     
-    
-
-
-    free(head_ref);
-}
+//     free(head_ref);
+// }
 
 void list_reverse(list_node** head)
 {

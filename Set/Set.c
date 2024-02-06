@@ -1,9 +1,7 @@
 #include <stddef.h>
 #include <string.h>
 #include <stdio.h>
-
-#define HASHMAP_SIZE 16
-#define HASHMAP_SIZE_LIST 5
+#include "../DataStructures.h"
 
 typedef struct aiv_set_item
 {

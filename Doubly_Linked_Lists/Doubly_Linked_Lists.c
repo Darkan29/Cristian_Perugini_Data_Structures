@@ -1,9 +1,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
-
-#define LIST(x) (list_node*)x 
-#define LISTPP(x) (list_node**)&x
+#include "../DataStructures.h"
 
 typedef struct list_node
 {
