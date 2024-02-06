@@ -130,24 +130,25 @@ int_item *int_item_new(int value)
 //     free(head_ref);
 // }
 
-void list_reverse(list_node** head)
+void list_reverse(list_node** head)      //REVERSE LIST (FROM 1,2,3,4 ---> 4,3,2,1)
 {
-    list_node* previous_node = NULL;
-    list_node* current = *head;
-    list_node* next_node = NULL;
+    list_node* previous_node = NULL;     //Starts at NULL as there are no Nodes before the Current one
+    list_node* current = *head;          //The current node we are at
+    list_node* next_node = NULL;         //Starts at NULL, will be changed to the node after Current
 
     while (current!=NULL)
     {
-        next_node = current->next;
-        current->next = previous_node;
-        previous_node = current;
-        current=next_node;
-    }
+        next_node = current->next;       //next_node become the node after current
+        current->next = previous_node;   //Change current's next item to its previous one, reversing the list step by step
+        previous_node = current;         //Moves previous node to Current position
+        current=next_node;               //Moves current node to Next node position
+    }                                    //At the end of the loop, previous_node is the last item of the list
 
-    *head = previous_node;
+    *head = previous_node;               //Head is moved to the last item of the list, that is now the first. 
 }
 
-void print_list(int_item * head) {
+void print_list(int_item * head) 
+{
     int_item * current = head;
 
     while (current != NULL) {
@@ -174,7 +175,7 @@ int main()
     list_append(LISTPP(my_linked_list), LIST(int_item_new(55555)));
     list_append(LISTPP(my_linked_list), LIST(int_item_new(777)));
 
-    //list_pop(LISTPP(my_linked_list));
+    list_pop(LISTPP(my_linked_list));
     
     //list_remove(LISTPP(my_linked_list), LIST(int_item_new(3)));
 

@@ -34,9 +34,9 @@ void aiv_set_insert(aiv_set *set, const char *key)
 
     const size_t index = hash % HASHMAP_SIZE;
 
-    for (size_t i = 0; i < HASHMAP_SIZE; i++)  //CHECK FOR UNIQUE KEYS
+    for (size_t i = 0; i < HASHMAP_SIZE; i++)  //CHECKS FOR UNIQUE KEYS
     {
-        if (set->hashmap[index][i].key == key)
+        if (set->hashmap[index][i].key == key)   //if current iteration's key inside the hashmap is equal to the given key
         {
             printf("There is already a %s element\n", key);
             return;

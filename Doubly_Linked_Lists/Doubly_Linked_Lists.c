@@ -62,39 +62,41 @@ void print_list(int_list_node* head)
 
 void insert_After(list_node* prev_node, list_node* new_node)
 {
-    if (prev_node == NULL) {
+    if (prev_node == NULL)                            //Checks if the considered node is NULL
+    {
         printf("ERROR: prev_node cannot be NULL");
         return;
     }
 
-    new_node->next = prev_node->next;
+    new_node->next = prev_node->next;                 //The new_node's next item is now the prev_node's next item
 
-    prev_node->next = new_node;
+    prev_node->next = new_node;                       //The prev_node's next item is now the new_node
 
-    new_node->prev = prev_node;
+    new_node->prev = prev_node;                       //The new_node's previous item is now the prev_node
 
-    if (new_node->next != NULL)
+    if (new_node->next != NULL)                       //if new_node is not last item of list
     {
-        new_node->next->prev = new_node;
+        new_node->next->prev = new_node;              //the previous item of new_node->next is new_node
     }
 }
 
 void insert_Before(list_node* next_node, list_node* new_node)
 {
-    if (next_node == NULL) {
-        printf("ERROR: next_node cannot be NULL");
+    if (next_node == NULL)                            //Checks if the considered node is NULL
+    {
+        printf("ERROR: next_node cannot be NULL");   
         return;
     }
 
-    new_node->prev = next_node->prev;
+    new_node->prev = next_node->prev;                 //The new_node's prev item is now the next_node's prev item
 
-    next_node->prev = new_node;
+    next_node->prev = new_node;                       //The next_node's prev item is now the new_node 
 
-    new_node->next = next_node;
+    new_node->next = next_node;                       //The new_node's next item is now the considered item
 
-    if (new_node->prev != NULL)
+    if (new_node->prev != NULL)                       //if new_node is not first item of list
     {
-        new_node->prev->next = new_node;
+        new_node->prev->next = new_node;             //The next item of new_node->prev is new_node
     }
 }
 
