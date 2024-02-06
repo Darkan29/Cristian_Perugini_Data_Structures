@@ -71,14 +71,12 @@ void print_list(int_list_node* head)
     }
 }
 
-void insertAfter(list_node* prev_node, list_node* new_node)
+void insert_After(list_node* prev_node, list_node* new_node)
 {
     if (prev_node == NULL) {
-        printf("the given previous node cannot be NULL");
+        printf("ERROR: prev_node cannot be NULL");
         return;
     }
-
-    new_node = (list_node*)malloc(sizeof(list_node));
 
     new_node->next = prev_node->next;
 
@@ -92,14 +90,12 @@ void insertAfter(list_node* prev_node, list_node* new_node)
     }
 }
 
-void insertBefore(list_node* next_node, list_node* new_node)
+void insert_Before(list_node* next_node, list_node* new_node)
 {
     if (next_node == NULL) {
-        printf("the given next node cannot be NULL");
+        printf("ERROR: next_node cannot be NULL");
         return;
     }
-
-    new_node = (list_node*)malloc(sizeof(list_node));
 
     new_node->prev = next_node->prev;
 
@@ -111,7 +107,6 @@ void insertBefore(list_node* next_node, list_node* new_node)
     {
         new_node->prev->next = new_node;
     }
-    
 }
 
 // void list_remove(list_node** head_ref, list_node* item_to_remove) //I GUESS REMOVE IS NOT MY STRONG SUIT
@@ -169,8 +164,8 @@ int main()
     int_list_node item6;
     item6.value = 6;
 
-    insertAfter((list_node*)&item3, (list_node*)&item4);
-    insertBefore((list_node*)&item7, (list_node*)&item6);
+    insert_After((list_node*)&item3, (list_node*)&item4);
+    insert_Before((list_node*)&item7, (list_node*)&item6);
     //list_remove((list_node**)&int_list, (list_node*)&item2.node.next); DOESN'T DO ANYTHING, STOPS OTHER FUNCTIONS TOO
 
     print_list(int_list);
